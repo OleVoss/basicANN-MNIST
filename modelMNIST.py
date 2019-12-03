@@ -37,12 +37,13 @@ def initNewWeights():
     wIH = np.random.rand(784, 20)
     wHH = np.random.rand(20, 20)
     wHO = np.random.rand(20, 10)
-    '''
+    
+    return wIH, wHH, wHO
+
+def saveWeights(wIH, wHH, wHO):
     np.savetxt("weightsIH.csv", wIH, delimiter=",")
     np.savetxt("weightsHH.csv", wHH, delimiter=",")
     np.savetxt("weightsHO.csv", wHO, delimiter=",")
-    '''
-    return wIH, wHH, wHO
 
 def plotPred(img, pred, count, index):
     x = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -60,6 +61,7 @@ wIH, wHH, wHO = initNewWeights()
 
 lr = 0.5
 # load data from csv
+print([load data])
 trainDf = pd.read_csv("mnist_train.csv", header=None)
 testDf = pd.read_csv("mnist_test.csv", header=None)
 
@@ -112,7 +114,7 @@ for epoch in range(epochs):
         wHH = wHH - lr * grad["gHH"]
         wHO = wHO - lr * grad["gHO"]
         runningLoss += Y - outAll["out3"]
-    print("Average loss:", np.mean(runningLoss))
+    print("Average loss: {}\n".format(np.round_(np.mean(runningLoss),2)))
 
 right = 0
 for i in range(len(labelsArrTest)):
