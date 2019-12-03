@@ -93,12 +93,7 @@ for i in range(10000):
     labelsArrTest[i][labelsRawTest[i]] = 1
     inputArrTest[i] = inputRawTest[i, :]
 
-# plot image for testing
-'''
-img = inputArr[0].reshape([28,28])
-plt.imshow(img, cmap="gray")
-plt.show()
-'''
+
 epochs = 4
 # train loop
 for epoch in range(epochs):
@@ -123,7 +118,6 @@ for i in range(len(labelsArrTest)):
 print("\nAccuracy over 10000 test samples: ", str(np.round_(right/len(labelsArrTest)*100,2)) + "%")
 
 count = 5
-
 
 
 for i in range(1,count*2+1,2):
