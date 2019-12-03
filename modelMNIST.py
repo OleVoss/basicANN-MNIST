@@ -1,6 +1,10 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import random
+
+def softmax(x):
+    return np.exp(x)/np.sum(np.exp(x))
 
 def sigmoid(X):
     return 1/(1+np.exp(-X))
@@ -40,6 +44,15 @@ def initNewWeights():
     '''
     return wIH, wHH, wHO
 
+def plotPred(img, pred, count, index):
+    x = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+    plt.subplot(count, 2, index)
+    plt.imshow(img, cmap="Greys_r")
+
+    plt.subplot(count, 2, index+1)
+    plt.bar(x, pred)
+   
 
 # init weights
 np.random.seed(123)
@@ -84,9 +97,10 @@ img = inputArr[0].reshape([28,28])
 plt.imshow(img, cmap="gray")
 plt.show()
 '''
-
+epochs = 4
 # train loop
-for epoch in range(1):
+for epoch in range(epochs):
+    print("###Epoch {}###".format(epoch))
     runningLoss = 0
     for i in range(len(inputArr)):
         X = np.array(inputArr[i]).reshape([1,-1])
@@ -98,10 +112,22 @@ for epoch in range(1):
         wHH = wHH - lr * grad["gHH"]
         wHO = wHO - lr * grad["gHO"]
         runningLoss += Y - outAll["out3"]
-
+    print("Average loss:", np.mean(runningLoss))
 
 right = 0
 for i in range(len(labelsArrTest)):
     if forward(inputArrTest[i], wIH, wHH, wHO)["out3"].argmax() == labelsArrTest[i].argmax():
         right += 1
-print("Accuracy over 10000 test samples: ", str((right/len(labelsArrTest))*100) + "%")
+print("\nAccuracy over 10000 test samples: ", str(np.round_(right/len(labelsArrTest)*100,2)) + "%")
+
+count = 5
+
+
+
+for i in range(1,count*2+1,2):
+    img = inputArrTest[random.randint(0,10000)]
+    pred = forward(img, wIH, wHH, wHO)["out3"]
+
+    plotPred(img.reshape(28,28), pred, count, i)
+
+plt.show()
