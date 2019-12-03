@@ -37,7 +37,7 @@ def initNewWeights():
     wIH = np.random.rand(784, 20)
     wHH = np.random.rand(20, 20)
     wHO = np.random.rand(20, 10)
-    
+
     return wIH, wHH, wHO
 
 def saveWeights(wIH, wHH, wHO):
@@ -61,7 +61,7 @@ wIH, wHH, wHO = initNewWeights()
 
 lr = 0.5
 # load data from csv
-print([load data])
+print("[load data]")
 trainDf = pd.read_csv("mnist_train.csv", header=None)
 testDf = pd.read_csv("mnist_test.csv", header=None)
 
